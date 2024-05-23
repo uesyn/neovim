@@ -2,23 +2,14 @@
   description = "Neovim derivation";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    gen-luarc.url = "github:mrcjkb/nix-gen-luarc-json";
-
-    # Add bleeding-edge plugins here.
-    # They can be updated with `nix flake update` (make sure to commit the generated flake.lock)
-    # wf-nvim = {
-    #   url = "github:Cassin01/wf.nvim";
-    #   flake = false;
-    # };
   };
 
   outputs = inputs @ {
     self,
     nixpkgs,
     flake-utils,
-    gen-luarc,
     ...
   }: let
     supportedSystems = [
@@ -35,12 +26,7 @@
       pkgs = import nixpkgs {
         inherit system;
         overlays = [
-          # Import the overlay, so that the final Neovim derivation(s) can be accessed via pkgs.<nvim-pkg>
           neovim-overlay
-          # This adds a function can be used to generate a .luarc.json
-          # containing the Neovim API all plugins in the workspace directory.
-          # The generated file can be symlinked in the devShell's shellHook.
-          gen-luarc.overlays.default
         ];
       };
       shell = pkgs.mkShell {
@@ -52,10 +38,6 @@
           stylua
           luajitPackages.luacheck
         ];
-        shellHook = ''
-          # symlink the .luarc.json generated in the overlay
-          ln -fs ${pkgs.nvim-luarc-json} .luarc.json
-        '';
       };
     in {
       packages = rec {

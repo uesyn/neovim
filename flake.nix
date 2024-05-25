@@ -41,8 +41,8 @@
       };
     in {
       packages = rec {
-        default = nvim;
-        nvim = pkgs.nvim-pkg;
+        default = neovim;
+        neovim = pkgs.neovim;
       };
       devShells = {
         default = shell;

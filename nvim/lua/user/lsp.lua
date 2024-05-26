@@ -40,9 +40,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "gi", "<Cmd>lua vim.lsp.buf.implementation()<CR>", bufopts)
         vim.keymap.set("n", "gI", "<Cmd>lua vim.lsp.buf.incoming_calls()<CR>", bufopts)
         vim.keymap.set("n", "gO", "<Cmd>lua vim.lsp.buf.outgoing_calls()<CR>", bufopts)
-        vim.keymap.set("n", "[LSP]R", "<Cmd>lua vim.lsp.buf.rename()<CR>", bufopts)
-        vim.keymap.set("n", "[LSP]a", "<Cmd>lua vim.lsp.buf.code_action()<CR>", bufopts)
-        vim.keymap.set("n", "[LSP]f", function()
+        vim.keymap.set("n", "<leader>lR", "<Cmd>lua vim.lsp.buf.rename()<CR>", bufopts)
+        vim.keymap.set("n", "<leader>la", "<Cmd>lua vim.lsp.buf.code_action()<CR>", bufopts)
+        vim.keymap.set("n", "<leader>lf", function()
             vim.lsp.buf.format({ async = true })
         end, bufopts)
         vim.keymap.set(

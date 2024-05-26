@@ -1,6 +1,6 @@
 -- Set up blame {{
 require("blame").setup()
-vim.keymap.set("n", "[GIT]b", "<Cmd>BlameToggle<CR>")
+vim.keymap.set("n", "<leader>gb", "<Cmd>BlameToggle<CR>")
 vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("my_blame", { clear = true }),
     pattern = "blame",

@@ -27,7 +27,7 @@ You can then add the overlay's output(s) to the `systemPackages`:
 
 ```nix
 environment.systemPackages = with pkgs; [
-    nvim-pkg # The default package added by the overlay
+    neovim # The default package added by the overlay
 ];
 ```
 
@@ -43,7 +43,7 @@ environment.systemPackages = with pkgs; [
 With Nix installed (flakes enabled), from the repo root:
 
 ```console
-nix profile install .#nvim
+nix profile install .#neovim
 ```
 
 ## :robot: Design

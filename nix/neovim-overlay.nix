@@ -39,7 +39,7 @@ with final.pkgs.lib; let
     copilot-vim
     dracula-nvim
     fidget-nvim
-    fzf-vim
+    fzf-lua
     gitsigns-nvim
     neo-tree-nvim
     nvim-cmp

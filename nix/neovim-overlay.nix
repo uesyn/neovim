@@ -68,6 +68,8 @@ with final.pkgs.lib; let
   # }
 
   extraPackages = with pkgs; [
+    bash
+    fzf
     gopls
     nil # nix LSP
     nodePackages.bash-language-server

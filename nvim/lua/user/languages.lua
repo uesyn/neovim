@@ -8,6 +8,10 @@ vim.keymap.set("i", "<C-o>", "<Plug>(copilot-dismiss)")
 vim.keymap.set("i", "<C-f>", "<Plug>(copilot-suggest)")
 -- }}}
 
+-- Set up CopilotChat-nvim {{{
+require("CopilotChat").setup {}
+-- }}}
+
 -- Set up nvim-treesitter {{{
 require("nvim-treesitter.configs").setup({ auto_install = false })
 -- }}}

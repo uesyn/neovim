@@ -13,6 +13,7 @@ with lib;
     # e.g. [ "^plugin/neogit.lua" "^ftplugin/.*.lua" ]
     ignoreConfigRegexes ? [],
     extraPackages ? [], # Extra runtime dependencies (e.g. ripgrep, ...)
+    extraLuaPackages ? [], # Additional lua packages (not plugins, e.g. lua51Packages.tiktoken_core)
     withPython3 ? false, # Build Neovim with Python 3 support?
     withRuby ? false, # Build Neovim with Ruby support?
     withNodeJs ? false, # Build Neovim with NodeJS support?
@@ -88,13 +89,29 @@ with lib;
         ''--prefix PATH : "${makeBinPath externalPackages}"'')
       ++ [ "--add-flags" (escapeShellArg ''--cmd "set rtp^=${nvimRtp},${nvimRtp}/after"'') ]);
 
+    luaPackages = pkgs.neovim-unwrapped.lua.pkgs;
+
+    # Native Lua libraries
+    extraMakeWrapperLuaCArgs =
+      optionalString (extraLuaPackages != [])
+      ''--suffix LUA_CPATH ";" "${concatMapStringsSep ";" luaPackages.getLuaCPath extraLuaPackages}"'';
+
+    # Lua libraries
+    extraMakeWrapperLuaArgs =
+      optionalString (extraLuaPackages != [])
+      ''--suffix LUA_PATH ";" "${concatMapStringsSep ";" luaPackages.getLuaPath extraLuaPackages}"'';
+
     neovim-wrapped = pkgs-wrapNeovim.wrapNeovimUnstable pkgs.neovim-unwrapped (neovimConfig
       // {
         luaRcContent = initLua;
         wrapperArgs =
           extraMakeWrapperArgs
           + " "
-          + escapeShellArgs neovimConfig.wrapperArgs;
+          + escapeShellArgs neovimConfig.wrapperArgs
+          + " "
+          + extraMakeWrapperLuaCArgs
+          + " "
+          + extraMakeWrapperLuaArgs;
         wrapRc = true;
       });
     in

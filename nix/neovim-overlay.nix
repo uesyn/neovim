@@ -36,7 +36,9 @@ with final.pkgs.lib; let
     cmp-nvim-lsp
     cmp-nvim-lsp-signature-help
     cmp-snippy
+    plenary-nvim
     copilot-vim
+    CopilotChat-nvim
     dracula-nvim
     fidget-nvim
     fzf-lua
@@ -77,9 +79,13 @@ with final.pkgs.lib; let
     ripgrep
     rust-analyzer
   ];
+
+  extraLuaPackages = with pkgs; [
+    lua51Packages.tiktoken_core
+  ];
 in {
   neovim = mkNeovim {
     plugins = plugins ++ unmanaged-plugins;
-    inherit extraPackages;
+    inherit extraPackages extraLuaPackages;
   };
 }

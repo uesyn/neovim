@@ -35,14 +35,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "[d", "<Cmd>lua vim.diagnostic.goto_prev()<CR>", bufopts)
         vim.keymap.set("n", "]d", "<Cmd>lua vim.diagnostic.goto_next()<CR>", bufopts)
         vim.keymap.set("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", bufopts)
-        vim.keymap.set("n", "gt", "<Cmd>lua vim.lsp.buf.type_definition()<CR>", bufopts)
         local ok, _ = pcall(require, 'fzf-lua')
         if ok then
           vim.keymap.set("n", "gr", "<Cmd>lua require('fzf-lua').lsp_references()<CR>", bufopts)
           vim.keymap.set("n", "gi", "<Cmd>lua require('fzf-lua').lsp_implementations()<CR>", bufopts)
+          vim.keymap.set("n", "gi", "<Cmd>lua require('fzf-lua').lsp_typedefs()<CR>", bufopts)
         else
           vim.keymap.set("n", "gr", "<Cmd>lua vim.lsp.buf.references()<CR>", bufopts)
           vim.keymap.set("n", "gi", "<Cmd>lua vim.lsp.buf.implementation()<CR>", bufopts)
+          vim.keymap.set("n", "gt", "<Cmd>lua vim.lsp.buf.type_definition()<CR>", bufopts)
         end
         vim.keymap.set("n", "gI", "<Cmd>lua vim.lsp.buf.incoming_calls()<CR>", bufopts)
         vim.keymap.set("n", "gO", "<Cmd>lua vim.lsp.buf.outgoing_calls()<CR>", bufopts)

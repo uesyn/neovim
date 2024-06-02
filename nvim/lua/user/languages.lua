@@ -9,7 +9,29 @@ vim.keymap.set("i", "<C-f>", "<Plug>(copilot-suggest)")
 -- }}}
 
 -- Set up CopilotChat-nvim {{{
-require("CopilotChat").setup {}
+require("CopilotChat").setup({
+  prompts = {
+    Explain = {
+      prompt = '/COPILOT_EXPLAIN Write an explanation for the active selection as paragraphs of text in Japanese.',
+    },
+    Review = {
+      prompt = '/COPILOT_REVIEW Review the selected code in Japanese.',
+    },
+  },
+})
+vim.keymap.set("n", "<Leader>cc", '<Cmd>lua require("CopilotChat").open()<CR>')
+vim.keymap.set("v", "<Leader>cc", '<Cmd>CopilotChatDocs<CR>')
+vim.keymap.set("v", "<Leader>ce", '<Cmd>CopilotChatExplain<CR>')
+vim.keymap.set("v", "<Leader>cr", '<Cmd>CopilotChatReview<CR>')
+vim.keymap.set("v", "<Leader>ct", '<Cmd>CopilotChatTests<CR>')
+
+vim.api.nvim_create_autocmd("FileType", {
+    group = vim.api.nvim_create_augroup("my_copilotchat", { clear = true }),
+    pattern = "copilot-chat",
+    callback = function()
+      vim.keymap.set("n", "<C-q>", '<Cmd>lua require("CopilotChat").toggle()<CR>', { buffer = true })
+    end,
+})
 -- }}}
 
 -- Set up nvim-treesitter {{{

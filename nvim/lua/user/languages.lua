@@ -24,6 +24,7 @@ vim.keymap.set("v", "<Leader>cc", '<Cmd>CopilotChatDocs<CR>')
 vim.keymap.set("v", "<Leader>ce", '<Cmd>CopilotChatExplain<CR>')
 vim.keymap.set("v", "<Leader>cr", '<Cmd>CopilotChatReview<CR>')
 vim.keymap.set("v", "<Leader>ct", '<Cmd>CopilotChatTests<CR>')
+vim.keymap.set("v", "<Leader>cj", '<Cmd>lua require("CopilotChat").ask("Translate to Japanese.", { selection = require("CopilotChat.select").visual })<CR>')
 
 vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("my_copilotchat", { clear = true }),

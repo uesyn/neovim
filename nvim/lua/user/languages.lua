@@ -20,7 +20,7 @@ require("CopilotChat").setup({
   },
 })
 vim.keymap.set("n", "<Leader>cc", '<Cmd>lua require("CopilotChat").open()<CR>')
-vim.keymap.set("v", "<Leader>cc", '<Cmd>CopilotChatDocs<CR>')
+vim.keymap.set("v", "<Leader>cd", '<Cmd>CopilotChatDocs<CR>')
 vim.keymap.set("v", "<Leader>ce", '<Cmd>CopilotChatExplain<CR>')
 vim.keymap.set("v", "<Leader>cr", '<Cmd>CopilotChatReview<CR>')
 vim.keymap.set("v", "<Leader>ct", '<Cmd>CopilotChatTests<CR>')

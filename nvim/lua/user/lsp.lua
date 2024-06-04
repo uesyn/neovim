@@ -39,7 +39,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         if ok then
           vim.keymap.set("n", "gr", "<Cmd>lua require('fzf-lua').lsp_references()<CR>", bufopts)
           vim.keymap.set("n", "gi", "<Cmd>lua require('fzf-lua').lsp_implementations()<CR>", bufopts)
-          vim.keymap.set("n", "gi", "<Cmd>lua require('fzf-lua').lsp_typedefs()<CR>", bufopts)
+          vim.keymap.set("n", "gt", "<Cmd>lua require('fzf-lua').lsp_typedefs()<CR>", bufopts)
         else
           vim.keymap.set("n", "gr", "<Cmd>lua vim.lsp.buf.references()<CR>", bufopts)
           vim.keymap.set("n", "gi", "<Cmd>lua vim.lsp.buf.implementation()<CR>", bufopts)

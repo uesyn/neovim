@@ -54,7 +54,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end, bufopts)
         vim.keymap.set(
             "n",
-            "[LSP]i",
+            "<leader>li",
             "<Cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>",
             bufopts
         )

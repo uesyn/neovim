@@ -51,6 +51,7 @@ with final.pkgs.lib; let
     nvim-surround
     openingh-nvim
     nvim-web-devicons
+    nvim-navic
   ];
 
   # Make sure we use the pinned nixpkgs instance for wrapNeovimUnstable,

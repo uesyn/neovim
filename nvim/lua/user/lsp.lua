@@ -173,3 +173,12 @@ if vim.fn.executable("nil") == 1 then
         capabilities = make_client_capabilities(),
     })
 end
+
+require('nvim-navic').setup {
+  lsp = {
+    auto_attach = true,
+  },
+  highlight = true,
+}
+
+vim.opt.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"

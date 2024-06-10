@@ -47,6 +47,7 @@
       devShells = {
         default = shell;
       };
+      formatter = pkgs.alejandra;
     })
     // {
       # You can add this overlay to your NixOS configuration

@@ -4,16 +4,15 @@ with final.pkgs.lib; let
   pkgs = final;
 
   # Use this to create a plugin from a flake input
-  mkNvimPlugin = url: branch: rev:
-    let
-      pname = "${strings.sanitizeDerivationName "${url}"}";
-      version = rev;
-      src = builtins.fetchGit {
-        inherit url;
-        ref = branch;
-        rev = rev;
-      };
-    in
+  mkNvimPlugin = url: branch: rev: let
+    pname = "${strings.sanitizeDerivationName "${url}"}";
+    version = rev;
+    src = builtins.fetchGit {
+      inherit url;
+      ref = branch;
+      rev = rev;
+    };
+  in
     pkgs.vimUtils.buildVimPlugin {
       inherit pname version src;
     };
@@ -27,10 +26,11 @@ with final.pkgs.lib; let
   ];
   plugins = with pkgs.vimPlugins; [
     (nvim-treesitter.withPlugins (
-      plugins: with plugins; [
-        markdown
-        markdown_inline
-      ]
+      plugins:
+        with plugins; [
+          markdown
+          markdown_inline
+        ]
     ))
     barbar-nvim
     cmp-nvim-lsp
@@ -59,7 +59,7 @@ with final.pkgs.lib; let
   pkgs-wrapNeovim = inputs.nixpkgs.legacyPackages.${pkgs.system};
 
   # This is the helper function that builds the Neovim derivation.
-  mkNeovim = pkgs.callPackage ./mkNeovim.nix { inherit pkgs-wrapNeovim; };
+  mkNeovim = pkgs.callPackage ./mkNeovim.nix {inherit pkgs-wrapNeovim;};
 
   # A plugin can either be a package or an attrset, such as
   # { plugin = <plugin>; # the package, e.g. pkgs.vimPlugins.nvim-cmp

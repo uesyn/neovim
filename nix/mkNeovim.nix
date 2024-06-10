@@ -87,7 +87,8 @@ with lib;
     extraMakeWrapperArgs = builtins.concatStringsSep " " (
       (optional (externalPackages != [])
         ''--prefix PATH : "${makeBinPath externalPackages}"'')
-      ++ [ "--add-flags" (escapeShellArg ''--cmd "set rtp^=${nvimRtp},${nvimRtp}/after"'') ]);
+      ++ ["--add-flags" (escapeShellArg ''--cmd "set rtp^=${nvimRtp},${nvimRtp}/after"'')]
+    );
 
     luaPackages = pkgs.neovim-unwrapped.lua.pkgs;
 
@@ -114,7 +115,7 @@ with lib;
           + extraMakeWrapperLuaArgs;
         wrapRc = true;
       });
-    in
+  in
     neovim-wrapped.overrideAttrs (oa: {
       buildPhase = oa.buildPhase;
     })

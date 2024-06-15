@@ -75,7 +75,7 @@ with final.pkgs.lib; let
     fzf
     gopls
     nil # nix LSP
-    nodePackages.bash-language-server
+    bash-language-server
     nodePackages.typescript-language-server
     ripgrep
     rust-analyzer

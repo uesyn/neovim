@@ -9,6 +9,8 @@
 with lib;
   {
     plugins ? [], # List of plugins
+    # The Neovim package to wrap
+    neovim-unwrapped ? pkgs-wrapNeovim.neovim-unwrapped,
     # Regexes for config files to ignore, relative to the nvim directory.
     # e.g. [ "^plugin/neogit.lua" "^ftplugin/.*.lua" ]
     ignoreConfigRegexes ? [],
@@ -90,7 +92,7 @@ with lib;
       ++ ["--add-flags" (escapeShellArg ''--cmd "set rtp^=${nvimRtp},${nvimRtp}/after"'')]
     );
 
-    luaPackages = pkgs.neovim-unwrapped.lua.pkgs;
+    luaPackages = neovim-unwrapped.lua.pkgs;
 
     # Native Lua libraries
     extraMakeWrapperLuaCArgs =
@@ -102,7 +104,7 @@ with lib;
       optionalString (extraLuaPackages != [])
       ''--suffix LUA_PATH ";" "${concatMapStringsSep ";" luaPackages.getLuaPath extraLuaPackages}"'';
 
-    neovim-wrapped = pkgs-wrapNeovim.wrapNeovimUnstable pkgs.neovim-unwrapped (neovimConfig
+    neovim-wrapped = pkgs-wrapNeovim.wrapNeovimUnstable neovim-unwrapped (neovimConfig
       // {
         luaRcContent = initLua;
         wrapperArgs =

@@ -25,13 +25,13 @@ with final.pkgs.lib; let
     nvim-markdown
   ];
   plugins = with pkgs.vimPlugins; [
-    (nvim-treesitter.withPlugins (
-      plugins:
-        with plugins; [
-          markdown
-          markdown_inline
-        ]
-    ))
+    # (nvim-treesitter.withPlugins (
+    #   plugins:
+    #     with plugins; [
+    #       markdown
+    #       markdown_inline
+    #     ]
+    # ))
     barbar-nvim
     cmp-nvim-lsp
     cmp-nvim-lsp-signature-help

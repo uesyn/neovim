@@ -37,7 +37,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- }}}
 
 -- Set up nvim-treesitter {{{
-require("nvim-treesitter.configs").setup({ auto_install = false })
+-- require("nvim-treesitter.configs").setup({ auto_install = false })
 -- }}}
 
 -- Set up markdown {{{

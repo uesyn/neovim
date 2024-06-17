@@ -82,7 +82,7 @@ with final.pkgs.lib; let
   ];
 
   extraLuaPackages = with pkgs; [
-    lua51Packages.tiktoken_core
+    lua51Packages.tiktoken_core # depended by CopilotChat-nvim
   ];
 in {
   neovim = mkNeovim {

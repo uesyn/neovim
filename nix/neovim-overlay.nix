@@ -4,8 +4,8 @@ with final.pkgs.lib; let
   pkgs = final;
 
   # Use this to create a plugin from a flake input
-  mkNvimPlugin = url: branch: rev: let
-    pname = "${strings.sanitizeDerivationName "${url}"}";
+  mkNvimPlugin = name: url: branch: rev: let
+    pname = "${strings.sanitizeDerivationName "${name}"}";
     version = rev;
     src = builtins.fetchGit {
       inherit url;
@@ -17,12 +17,14 @@ with final.pkgs.lib; let
       inherit pname version src;
     };
 
-  blame-nvim = mkNvimPlugin "https://github.com/FabijanZulj/blame.nvim.git" "main" "dedbcdce857f708c63f261287ac7491a893912d0";
-  nvim-markdown = mkNvimPlugin "https://github.com/ixru/nvim-markdown.git" "master" "75639723c1a3a44366f80cff11383baf0799bcb5";
+  lz-n = mkNvimPlugin "lz.n" "https://github.com/nvim-neorocks/lz.n" "master" "5368c55db04664755ffb6b39eab241bf63989f5e";
+  blame-nvim = mkNvimPlugin "blame.nvim" "https://github.com/FabijanZulj/blame.nvim.git" "main" "dedbcdce857f708c63f261287ac7491a893912d0";
+  nvim-markdown = mkNvimPlugin "nvim-markdown" "https://github.com/ixru/nvim-markdown.git" "master" "75639723c1a3a44366f80cff11383baf0799bcb5";
 
   unmanaged-plugins = [
-    blame-nvim
-    nvim-markdown
+    { plugin = blame-nvim; optional = true; }
+    { plugin = nvim-markdown; optional = true; }
+    lz-n
   ];
   plugins = with pkgs.vimPlugins; [
     # (nvim-treesitter.withPlugins (
@@ -32,26 +34,28 @@ with final.pkgs.lib; let
     #       markdown_inline
     #     ]
     # ))
-    barbar-nvim
-    cmp-nvim-lsp
-    cmp-nvim-lsp-signature-help
-    cmp-snippy
-    plenary-nvim
-    copilot-vim
-    CopilotChat-nvim
-    dracula-nvim
-    fidget-nvim
-    fzf-lua
-    gitsigns-nvim
-    neo-tree-nvim
-    nvim-cmp
-    nvim-lspconfig
-    nvim-osc52
-    nvim-snippy
-    nvim-surround
-    openingh-nvim
-    nvim-web-devicons
-    nvim-navic
+    { plugin = dracula-nvim; optional = false; }
+    { plugin = plenary-nvim; optional = false; }
+    { plugin = nvim-web-devicons; optional = false; }
+    { plugin = barbar-nvim; optional = true; }
+    { plugin = copilot-vim; optional = true; }
+    { plugin = CopilotChat-nvim; optional = true; }
+    { plugin = fzf-lua; optional = false; }
+    { plugin = gitsigns-nvim; optional = true; }
+    { plugin = neo-tree-nvim; optional = true; }
+    { plugin = openingh-nvim; optional = true; }
+    { plugin = nvim-osc52; optional = true; }
+    { plugin = nvim-surround; optional = true; }
+
+    { plugin = nvim-lspconfig; optional = false; }
+    { plugin = cmp-nvim-lsp; optional = false; }
+    { plugin = cmp-nvim-lsp-signature-help; optional = false; }
+    { plugin = cmp-snippy; optional = false; }
+    { plugin = nvim-snippy; optional = false; }
+    { plugin = nvim-cmp; optional = true; }
+
+    { plugin = fidget-nvim; optional = true; }
+    { plugin = nvim-navic; optional = true; }
   ];
 
   # Make sure we use the pinned nixpkgs instance for wrapNeovimUnstable,

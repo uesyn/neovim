@@ -1,7 +1,3 @@
-vim.keymap.set("n", "<C-n>", "<Cmd>BufferNext<CR>")
-vim.keymap.set("n", "<C-p>", "<Cmd>BufferPrevious<CR>")
-vim.keymap.set("n", "<C-q>", "<Cmd>BufferClose<CR>")
-vim.keymap.set("n", "<leader>fo", "<Cmd>Neotree action=focus reveal toggle<CR>", { silent = true })
 vim.keymap.set("n", "<C-h>", "<C-w><")
 vim.keymap.set("n", "<C-j>", "<C-w>-")
 vim.keymap.set("n", "<C-k>", "<C-w>+")

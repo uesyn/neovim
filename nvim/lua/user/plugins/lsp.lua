@@ -181,12 +181,23 @@ return {
     "nvim-navic",
     after = function()
       require('nvim-navic').setup {
-        lsp = {
-          auto_attach = true,
-        },
         highlight = true,
       }
-      vim.opt.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("my_nvim_navic", { clear = true }),
+        callback = function(args)
+          if not (args.data and args.data.client_id) then
+              return
+          end
+
+          vim.opt.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+
+          local bufnr = args.buf
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          require('nvim-navic').attach(client, bufnr)
+        end,
+      })
     end,
     event = "BufEnter",
   },

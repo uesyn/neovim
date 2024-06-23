@@ -3,7 +3,8 @@ return {
   after = function()
     require("barbar").setup({
       ["animation"] = false,
-      ["auto_hide"] = 1,
+      auto_hide = 0,
+      exclude_ft = {'dump'},
     })
     vim.keymap.set("n", "<C-n>", "<Cmd>BufferNext<CR>")
     vim.keymap.set("n", "<C-p>", "<Cmd>BufferPrevious<CR>")

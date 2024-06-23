@@ -1,5 +1,5 @@
 vim.filetype.add({
-  extension = {
-    dump = 'dump',
+  pattern = {
+    ['/tmp/.*%.dump'] = 'dump',
   },
 })

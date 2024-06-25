@@ -23,8 +23,14 @@ with final.pkgs.lib; let
   cellwidths-nvim = mkNvimPlugin "cellwidths.nvim" "https://github.com/delphinus/cellwidths.nvim.git" "main" "98d8b428020c7e0af098f316a02490e5b37e98da";
 
   unmanaged-plugins = [
-    { plugin = blame-nvim; optional = true; }
-    { plugin = nvim-markdown; optional = true; }
+    {
+      plugin = blame-nvim;
+      optional = true;
+    }
+    {
+      plugin = nvim-markdown;
+      optional = true;
+    }
     cellwidths-nvim
     lz-n
   ];
@@ -36,28 +42,88 @@ with final.pkgs.lib; let
     #       markdown_inline
     #     ]
     # ))
-    { plugin = dracula-nvim; optional = false; }
-    { plugin = plenary-nvim; optional = false; }
-    { plugin = nvim-web-devicons; optional = false; }
-    { plugin = barbar-nvim; optional = true; }
-    { plugin = copilot-vim; optional = true; }
-    { plugin = CopilotChat-nvim; optional = true; }
-    { plugin = fzf-lua; optional = false; }
-    { plugin = gitsigns-nvim; optional = true; }
-    { plugin = neo-tree-nvim; optional = true; }
-    { plugin = openingh-nvim; optional = true; }
-    { plugin = nvim-osc52; optional = true; }
-    { plugin = nvim-surround; optional = true; }
+    {
+      plugin = dracula-nvim;
+      optional = false;
+    }
+    {
+      plugin = plenary-nvim;
+      optional = false;
+    }
+    {
+      plugin = nvim-web-devicons;
+      optional = false;
+    }
+    {
+      plugin = barbar-nvim;
+      optional = true;
+    }
+    {
+      plugin = copilot-vim;
+      optional = true;
+    }
+    {
+      plugin = CopilotChat-nvim;
+      optional = true;
+    }
+    {
+      plugin = fzf-lua;
+      optional = false;
+    }
+    {
+      plugin = gitsigns-nvim;
+      optional = true;
+    }
+    {
+      plugin = neo-tree-nvim;
+      optional = true;
+    }
+    {
+      plugin = openingh-nvim;
+      optional = true;
+    }
+    {
+      plugin = nvim-osc52;
+      optional = true;
+    }
+    {
+      plugin = nvim-surround;
+      optional = true;
+    }
 
-    { plugin = nvim-lspconfig; optional = false; }
-    { plugin = cmp-nvim-lsp; optional = false; }
-    { plugin = cmp-nvim-lsp-signature-help; optional = false; }
-    { plugin = cmp-snippy; optional = false; }
-    { plugin = nvim-snippy; optional = false; }
-    { plugin = nvim-cmp; optional = true; }
+    {
+      plugin = nvim-lspconfig;
+      optional = false;
+    }
+    {
+      plugin = cmp-nvim-lsp;
+      optional = false;
+    }
+    {
+      plugin = cmp-nvim-lsp-signature-help;
+      optional = false;
+    }
+    {
+      plugin = cmp-snippy;
+      optional = false;
+    }
+    {
+      plugin = nvim-snippy;
+      optional = false;
+    }
+    {
+      plugin = nvim-cmp;
+      optional = true;
+    }
 
-    { plugin = fidget-nvim; optional = true; }
-    { plugin = nvim-navic; optional = true; }
+    {
+      plugin = fidget-nvim;
+      optional = true;
+    }
+    {
+      plugin = nvim-navic;
+      optional = true;
+    }
   ];
 
   # Make sure we use the pinned nixpkgs instance for wrapNeovimUnstable,

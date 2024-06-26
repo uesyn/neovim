@@ -130,6 +130,12 @@ return {
           capabilities = make_client_capabilities(),
         })
       end
+
+      if vim.fn.executable("jdtls") == 1 then
+        require'lspconfig'.jdtls.setup({
+          capabilities = make_client_capabilities(),
+	})
+      end
     end,
   },
   { "cmp-nvim-lsp" },

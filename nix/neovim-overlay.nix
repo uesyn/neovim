@@ -144,11 +144,13 @@ with final.pkgs.lib; let
 
   extraPackages = with pkgs; [
     bash
+    bash-language-server
     fzf
     gopls
+    jdt-language-server
     nil # nix LSP
-    bash-language-server
     nodePackages.typescript-language-server
+    pyright
     ripgrep
     rust-analyzer
   ];

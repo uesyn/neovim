@@ -132,7 +132,7 @@ return {
       end
 
       if vim.fn.executable("jdtls") == 1 then
-        require'lspconfig'.jdtls.setup({
+        lspconfig.jdtls.setup({
           capabilities = make_client_capabilities(),
 	})
       end

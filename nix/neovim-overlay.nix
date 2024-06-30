@@ -17,7 +17,7 @@ with final.pkgs.lib; let
       inherit pname version src;
     };
 
-  lz-n = mkNvimPlugin "lz.n" "https://github.com/nvim-neorocks/lz.n" "master" "5368c55db04664755ffb6b39eab241bf63989f5e";
+  lz-n = mkNvimPlugin "lz.n" "https://github.com/nvim-neorocks/lz.n" "master" "efd583783ef391efe5424c378246ff793f61a2d2";
   blame-nvim = mkNvimPlugin "blame.nvim" "https://github.com/FabijanZulj/blame.nvim.git" "main" "dedbcdce857f708c63f261287ac7491a893912d0";
   nvim-markdown = mkNvimPlugin "nvim-markdown" "https://github.com/ixru/nvim-markdown.git" "master" "75639723c1a3a44366f80cff11383baf0799bcb5";
   cellwidths-nvim = mkNvimPlugin "cellwidths.nvim" "https://github.com/delphinus/cellwidths.nvim.git" "main" "98d8b428020c7e0af098f316a02490e5b37e98da";

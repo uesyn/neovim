@@ -20,7 +20,7 @@ return {
   {
     "gitsigns.nvim",
     after = function()
-      require("gitsigns").setup({ ["signs"] = { ["add"] = { ["text"] = "+" }, ["change"] = { ["text"] = "~" } } })
+      require("gitsigns").setup()
     end,
     event = "BufEnter",
   },

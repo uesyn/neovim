@@ -11,67 +11,24 @@ with lib;
     plugins ? [], # List of plugins
     # The Neovim package to wrap
     neovim-unwrapped ? pkgs-wrapNeovim.neovim-unwrapped,
-    # Regexes for config files to ignore, relative to the nvim directory.
-    # e.g. [ "^plugin/neogit.lua" "^ftplugin/.*.lua" ]
-    ignoreConfigRegexes ? [],
     extraPackages ? [], # Extra runtime dependencies (e.g. ripgrep, ...)
     extraLuaPackages ? [], # Additional lua packages (not plugins, e.g. lua51Packages.tiktoken_core)
-    withPython3 ? false, # Build Neovim with Python 3 support?
-    withRuby ? false, # Build Neovim with Ruby support?
-    withNodeJs ? false, # Build Neovim with NodeJS support?
-    viAlias ? true, # Add a "vi" binary to the build output as an alias?
-    vimAlias ? true, # Add a "vim" binary to the build output as an alias?
+    withPython3 ? false,
+    withRuby ? false,
+    withNodeJs ? false,
+    viAlias ? true,
+    vimAlias ? true,
   }: let
-    # This is the structure of a plugin definition.
-    # Each plugin in the `plugins` argument list can also be defined as this attrset
-    defaultPlugin = {
-      plugin = null; # e.g. nvim-lspconfig
-      config = null; # plugin config
-      optional = false;
-      runtime = {};
-    };
-
-    externalPackages = extraPackages;
-
-    # Map all plugins to an attrset { plugin = <plugin>; config = <config>; optional = <tf>; ... }
-    normalizedPlugins = map (x:
-      defaultPlugin
-      // (
-        if x ? plugin
-        then x
-        else {plugin = x;}
-      ))
-    plugins;
-
     # This nixpkgs util function creates an attrset
     # that pkgs.wrapNeovimUnstable uses to configure the Neovim build.
     neovimConfig = pkgs-wrapNeovim.neovimUtils.makeNeovimConfig {
       inherit withPython3 withRuby withNodeJs viAlias vimAlias;
-      plugins = normalizedPlugins;
+      plugins = plugins;
     };
 
-    # This uses the ignoreConfigRegexes list to filter
-    # the nvim directory
-    nvimRtpSrc = let
-      src = ../nvim;
-    in
-      lib.cleanSourceWith {
-        inherit src;
-        name = "nvim-rtp-src";
-        filter = path: tyoe: let
-          srcPrefix = toString src + "/";
-          relPath = lib.removePrefix srcPrefix (toString path);
-        in
-          lib.all (regex: builtins.match regex relPath == null) ignoreConfigRegexes;
-      };
-
-    # Split runtimepath into 2 directories:
-    # - nvim, containing plugin, ftplugin, ... subdirectories
-    # - after, to be sourced last in the startup initialization
-    # See also: https://neovim.io/doc/user/starting.html
     nvimRtp = stdenv.mkDerivation {
       name = "nvim-rtp";
-      src = nvimRtpSrc;
+      src = ../nvim;
 
       buildPhase = ''
         mkdir -p $out
@@ -87,8 +44,8 @@ with lib;
 
     # Add arguments to the Neovim wrapper script
     extraMakeWrapperArgs = builtins.concatStringsSep " " (
-      (optional (externalPackages != [])
-        ''--prefix PATH : "${makeBinPath externalPackages}"'')
+      (optional (extraPackages != [])
+        ''--prefix PATH : "${makeBinPath extraPackages}"'')
       ++ ["--add-flags" (escapeShellArg ''--cmd "set rtp^=${nvimRtp},${nvimRtp}/after"'')]
     );
 
@@ -118,6 +75,4 @@ with lib;
         wrapRc = true;
       });
   in
-    neovim-wrapped.overrideAttrs (oa: {
-      buildPhase = oa.buildPhase;
-    })
+    neovim-wrapped

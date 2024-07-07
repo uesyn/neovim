@@ -19,7 +19,6 @@
       "aarch64-darwin"
     ];
 
-    # This is where the Neovim derivation is built.
     neovim-overlay = import ./nix/neovim-overlay.nix {inherit inputs;};
   in
     flake-utils.lib.eachSystem supportedSystems (system: let
@@ -30,23 +29,10 @@
           neovim-overlay
         ];
       };
-      shell = pkgs.mkShell {
-        name = "nvim-devShell";
-        buildInputs = with pkgs; [
-          # Tools for Lua and Nix development, useful for editing files in this repo
-          lua-language-server
-          nil
-          stylua
-          luajitPackages.luacheck
-        ];
-      };
     in {
       packages = rec {
         default = neovim;
         neovim = pkgs.neovim;
-      };
-      devShells = {
-        default = shell;
       };
       formatter = pkgs.alejandra;
     })

@@ -30,7 +30,9 @@ with final.pkgs.lib; let
       plugin = nvim-markdown;
       optional = true;
     }
-    { plugin = cellwidths-nvim; }
+    {
+      plugin = cellwidths-nvim;
+    }
   ];
   plugins = with pkgs.vimPlugins; [
     # (nvim-treesitter.withPlugins (
@@ -40,7 +42,9 @@ with final.pkgs.lib; let
     #       markdown_inline
     #     ]
     # ))
-    { plugin = lz-n; }
+    {
+      plugin = lz-n;
+    }
     {
       plugin = dracula-nvim;
       optional = false;

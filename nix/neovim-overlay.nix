@@ -99,10 +99,6 @@ with final.pkgs.lib; let
       optional = false;
     }
     {
-      plugin = cmp-nvim-lsp-signature-help;
-      optional = false;
-    }
-    {
       plugin = cmp-snippy;
       optional = false;
     }

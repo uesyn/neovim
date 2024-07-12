@@ -1,7 +1,8 @@
 return {
   {
-    "blame.nvim",
-    after = function()
+    name = "blame_nvim",
+    dir = "@blame_nvim@",
+    config = function()
       require("blame").setup()
       vim.keymap.set("n", "<leader>gb", "<Cmd>BlameToggle<CR>")
       vim.api.nvim_create_autocmd("FileType", {
@@ -18,10 +19,12 @@ return {
     keys = { "<Leader>gb" },
   },
   {
-    "gitsigns.nvim",
-    after = function()
+    name = "gitsigns_nvim",
+    dir = "@gitsigns_nvim@",
+    config = function()
       require("gitsigns").setup()
     end,
     event = "BufEnter",
   },
+
 }

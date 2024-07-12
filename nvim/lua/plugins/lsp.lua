@@ -1,7 +1,8 @@
 return {
   {
-    "nvim-lspconfig",
-    after = function()
+    name = "nvim_lspconfig",
+    dir = "@nvim_lspconfig@",
+    config = function()
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("my_lspconfig", { clear = true }),
         callback = function(args)
@@ -138,12 +139,16 @@ return {
       end
     end,
   },
-  { "cmp-nvim-lsp" },
-  { "cmp-snippy" },
-  { "nvim-snippy" },
   {
-    "nvim-cmp",
-    after = function()
+    name = "nvim_cmp",
+    dir = "@nvim_cmp@",
+    dependencies = {
+      { name = "nvim_lspconfig", dir = "@nvim_lspconfig@" },
+      { name = "cmp_nvim_lsp", dir = "@cmp_nvim_lsp@" },
+      { name = "nvim_snippy", dir = "@nvim_snippy@" },
+      { name = "cmp_snippy", dir = "@cmp_snippy@" },
+    },
+    config = function()
       local cmp = require("cmp")
       cmp.setup({
         snippet = {
@@ -172,18 +177,26 @@ return {
         },
       })
     end,
-    event = "BufEnter",
+    event = "InsertEnter",
   },
   {
-    "fidget.nvim",
-    after = function()
+    name = "fidget_nvim",
+    dir = "@fidget_nvim@",
+    dependencies = {
+      { name = "nvim_lspconfig", dir = "@nvim_lspconfig@" },
+    },
+    config = function()
       require("fidget").setup({})
     end,
     event = "LspAttach",
   },
   {
-    "nvim-navic",
-    after = function()
+    name = "nvim_navic",
+    dir = "@nvim_navic@",
+    dependencies = {
+      { name = "nvim_lspconfig", dir = "@nvim_lspconfig@" },
+    },
+    config = function()
       require('nvim-navic').setup {
         highlight = true,
       }
@@ -199,7 +212,9 @@ return {
 
           local bufnr = args.buf
           local client = vim.lsp.get_client_by_id(args.data.client_id)
-          require('nvim-navic').attach(client, bufnr)
+          if client.server_capabilities.documentSymbolProvider then
+            require('nvim-navic').attach(client, bufnr)
+	  end
         end,
       })
     end,

@@ -1,7 +1,8 @@
 return {
   {
-    "copilot.vim",
-    after = function()
+    name = "copilot_vim",
+    dir = "@copilot_vim@",
+    config = function()
       vim.g.copilot_filetypes = { markdown = false }
       -- https://github.com/orgs/community/discussions/29817#discussioncomment-4217615
       vim.keymap.set("i", "<C-l>", 'copilot#Accept("<CR>")', { silent = true, expr = true, script = true, replace_keycodes = false })
@@ -10,11 +11,16 @@ return {
       vim.keymap.set("i", "<C-o>", "<Plug>(copilot-dismiss)")
       vim.keymap.set("i", "<C-f>", "<Plug>(copilot-suggest)")
     end,
-    event = "BufEnter", -- TODO: Use keys event
+    event = "BufEnter",
   },
   {
-    "CopilotChat.nvim",
-    after = function()
+    name = "copilotchat_nvim",
+    dir = "@copilotchat_nvim@",
+    dependencies = {
+      { name = "copilot_vim", dir = "@copilot_vim@" },
+      { name = "plenary_nvim", dir = "@plenary_nvim@" },
+    },
+    config = function()
       require("CopilotChat").setup({
           prompts = {
               Explain = {
@@ -41,11 +47,20 @@ return {
           end,
       })
     end,
-    event = "BufEnter",
+    keys = {
+      { "<Leader>cC", mode = "n" },
+      { "<Leader>cd", mode = "v" },
+      { "<Leader>ce", mode = "v" },
+      { "<Leader>cr", mode = "v" },
+      { "<Leader>ct", mode = "v" },
+      { "<Leader>cc", mode = "n" },
+      { "<Leader>cj", mode = "v" },
+    },
   },
   {
-    "nvim-markdown",
-    after = function()
+    name = "nvim_markdown",
+    dir = "@nvim_markdown@",
+    config = function()
       vim.api.nvim_create_autocmd("FileType", {
           group = vim.api.nvim_create_augroup("my_nvim_markdown", { clear = true }),
           pattern = "markdown",

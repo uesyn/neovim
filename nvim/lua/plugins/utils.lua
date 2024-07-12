@@ -1,15 +1,22 @@
 return {
   {
-    "fzf-lua",
-    after = function()
+    name = "fzf_lua",
+    dir = "@fzf_lua@",
+    config = function()
       vim.keymap.set("n", "<Leader>fs", "<Cmd>lua require('fzf-lua').live_grep()<CR>")
       vim.keymap.set("n", "<Leader>ff", "<Cmd>lua require('fzf-lua').files()<CR>")
       vim.keymap.set("n", "<Leader>fb", "<Cmd>lua require('fzf-lua').blines()<CR>")
     end,
   },
   {
-    "neo-tree.nvim",
-    after = function()
+    name = "neo_tree_nvim",
+    dir = "@neo_tree_nvim@",
+    dependencies = {
+      { name = "nvim_web_devicons", dir = "@nvim_web_devicons@" },
+      { name = "plenary_nvim", dir = "@plenary_nvim@" },
+      { name = "nui_nvim", dir = "@nui_nvim@" },
+    },
+    config = function()
       require("neo-tree").setup({
           ["filesystem"] = { ["filtered_items"] = { ["hide_dotfiles"] = false, ["hide_gitignored"] = false } },
           ["popup_border_style"] = "solid",
@@ -45,23 +52,26 @@ return {
     keys = "<Leader>fo",
   },
   {
-    "nvim-surround",
-    after = function()
+    name = "nvim_surround",
+    dir = "@nvim_surround@",
+    config = function()
       require("nvim-surround").setup({})
     end,
-    event = "BufEnter",
+    event = "InsertEnter",
   },
   {
-    "openingh.nvim",
-    after = function()
+    name = "openingh_nvim",
+    dir = "@openingh_nvim@",
+    config = function()
       vim.keymap.set("n", "<Leader>ho", "<Cmd>OpenInGHFile<CR>")
       vim.keymap.set("v", "<Leader>ho", "<Esc><Cmd>'<,'>OpenInGHFile<CR>")
     end,
     keys = { { "<Leader>ho", mode = "n" }, { "<Leader>ho", mode = "v" } },
   },
   {
-    "nvim-osc52",
-    after = function()
+    name = "nvim_osc52",
+    dir = "@nvim_osc52@",
+    config = function()
       vim.keymap.set("v", "<leader>y", require("osc52").copy_visual)
       vim.api.nvim_create_autocmd("TextYankPost", {
           group = vim.api.nvim_create_augroup("my_nvim_osc52", { clear = true }),

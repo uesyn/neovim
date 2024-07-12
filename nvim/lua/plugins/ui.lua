@@ -1,15 +1,20 @@
 return {
   {
-    "dracula.nvim",
-    colorscheme = "dracula",
-    after = function()
+    name = "dracula_nvim",
+    dir = "@dracula_nvim@",
+    lazy = false,
+    priority = 1000,
+    config = function()
       vim.cmd.colorscheme("dracula")
     end,
-    event = "VimEnter",
   },
   {
-    "barbar.nvim",
-    after = function()
+    name = "barbar_nvim",
+    dir = "@barbar_nvim@",
+    dependencies = {
+      { name = "nvim_web_devicons", dir = "@nvim_web_devicons@" },
+    },
+    config = function()
       require("barbar").setup({
         ["animation"] = false,
         auto_hide = 0,
@@ -22,10 +27,12 @@ return {
     event = "BufEnter",
   },
   {
-    "cellwidths.nvim",
-    after = function()
+    name = "cellwidths_nvim",
+    dir = "@cellwidths_nvim@",
+    config = function()
       require("cellwidths").setup { name = "default" }
     end,
     event = "VimEnter",
   },
 }
+

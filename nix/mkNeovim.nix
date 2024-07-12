@@ -8,7 +8,6 @@
 }:
 with lib;
   {
-    plugins ? [], # List of plugins
     # The Neovim package to wrap
     neovim-unwrapped ? pkgs-wrapNeovim.neovim-unwrapped,
     extraPackages ? [], # Extra runtime dependencies (e.g. ripgrep, ...)
@@ -23,22 +22,24 @@ with lib;
     # that pkgs.wrapNeovimUnstable uses to configure the Neovim build.
     neovimConfig = pkgs-wrapNeovim.neovimUtils.makeNeovimConfig {
       inherit withPython3 withRuby withNodeJs viAlias vimAlias;
-      plugins = plugins;
     };
 
-    nvimRtp = stdenv.mkDerivation {
+    plugins = import ./plugins.nix {
+      inherit pkgs;
+    };
+
+    nvimRtp = stdenv.mkDerivation ({
       name = "nvim-rtp";
       src = ../nvim;
 
       buildPhase = ''
         mkdir -p $out
-        rm init.lua
+        find . -type d | xargs -I{} mkdir -p $out/{}
+        for file in $(find . -type f); do
+          substituteAll $file $out/$file
+        done
       '';
-
-      installPhase = ''
-        cp -r * $out
-      '';
-    };
+    } // plugins);
 
     initLua = builtins.readFile ../nvim/init.lua;
 
@@ -46,7 +47,8 @@ with lib;
     extraMakeWrapperArgs = builtins.concatStringsSep " " (
       (optional (extraPackages != [])
         ''--prefix PATH : "${makeBinPath extraPackages}"'')
-      ++ ["--add-flags" (escapeShellArg ''--cmd "set rtp^=${nvimRtp},${nvimRtp}/after"'')]
+      ++ ["--add-flags" (escapeShellArg ''--cmd "set rtp^=${nvimRtp}"'')]
+      ++ ["--add-flags" (escapeShellArg ''-u ${nvimRtp}/init.lua'')]
     );
 
     luaPackages = neovim-unwrapped.lua.pkgs;
@@ -72,7 +74,7 @@ with lib;
           + extraMakeWrapperLuaCArgs
           + " "
           + extraMakeWrapperLuaArgs;
-        wrapRc = true;
+        wrapRc = false;
       });
   in
     neovim-wrapped

@@ -1,4 +1,24 @@
-require('user.options')
-require('user.keymaps')
-require('user.autocommands')
-require("lz.n").load("user/plugins")
+require('options')
+require('keymaps')
+require('autocommands')
+local lazypath = "@lazy_nvim@"
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
+  defaults = { lazy = true },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "matchit",
+        "matchparen",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
+  spec = "plugins",
+})

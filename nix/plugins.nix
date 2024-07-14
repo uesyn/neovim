@@ -1,5 +1,4 @@
-{ pkgs }:
-let
+{pkgs}: let
   # Use this to create a plugin from a flake input
   mkNvimPlugin = name: url: branch: rev: let
     pname = "${pkgs.lib.strings.sanitizeDerivationName "${name}"}";
@@ -28,7 +27,8 @@ let
     plenary_nvim = plenary-nvim;
     nvim_web_devicons = nvim-web-devicons;
     barbar_nvim = barbar-nvim;
-    copilot_vim = copilot-vim;
+    copilot_lua = copilot-lua;
+    copilot_cmp = copilot-cmp;
     copilotchat_nvim = CopilotChat-nvim;
     fzf_lua = fzf-lua;
     gitsigns_nvim = gitsigns-nvim;

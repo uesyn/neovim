@@ -29,17 +29,18 @@ with lib;
     };
 
     nvimRtp = stdenv.mkDerivation ({
-      name = "nvim-rtp";
-      src = ../nvim;
+        name = "nvim-rtp";
+        src = ../nvim;
 
-      buildPhase = ''
-        mkdir -p $out
-        find . -type d | xargs -I{} mkdir -p $out/{}
-        for file in $(find . -type f); do
-          substituteAll $file $out/$file
-        done
-      '';
-    } // plugins);
+        buildPhase = ''
+          mkdir -p $out
+          find . -type d | xargs -I{} mkdir -p $out/{}
+          for file in $(find . -type f); do
+            substituteAll $file $out/$file
+          done
+        '';
+      }
+      // plugins);
 
     initLua = builtins.readFile ../nvim/init.lua;
 

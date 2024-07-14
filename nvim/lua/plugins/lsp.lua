@@ -144,6 +144,16 @@ return {
     dir = "@nvim_cmp@",
     dependencies = {
       { name = "nvim_lspconfig", dir = "@nvim_lspconfig@" },
+      {
+	name = "copilot_cmp",
+	dir = "@copilot_cmp@",
+	dependencies = {
+	  { name = "copilot_lsp", dir = "@copilot_lsp@" },
+	},
+	config = function()
+	  require("copilot_cmp").setup()
+        end
+      },
       { name = "cmp_nvim_lsp", dir = "@cmp_nvim_lsp@" },
       { name = "nvim_snippy", dir = "@nvim_snippy@" },
       { name = "cmp_snippy", dir = "@cmp_snippy@" },
@@ -171,6 +181,7 @@ return {
         sources = {
           { name = "nvim_lsp" },
           { name = "snippy" },
+          { name = "copilot" },
         },
         experimental = {
           ghost_text = true,

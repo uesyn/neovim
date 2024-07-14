@@ -148,7 +148,7 @@ return {
 	name = "copilot_cmp",
 	dir = "@copilot_cmp@",
 	dependencies = {
-	  { name = "copilot_lsp", dir = "@copilot_lsp@" },
+	  { name = "copilot_lua", dir = "@copilot_lua@" },
 	},
 	config = function()
 	  require("copilot_cmp").setup()

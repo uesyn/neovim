@@ -7,6 +7,7 @@ return {
       vim.keymap.set("n", "<Leader>ff", "<Cmd>lua require('fzf-lua').files()<CR>")
       vim.keymap.set("n", "<Leader>fb", "<Cmd>lua require('fzf-lua').blines()<CR>")
     end,
+    keys = { "<Leader>fs", "<Leader>ff", "<Leader>fb" },
   },
   {
     name = "neo_tree_nvim",

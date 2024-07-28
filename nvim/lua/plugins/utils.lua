@@ -86,4 +86,13 @@ return {
     end,
     event = "BufEnter",
   },
+  {
+    name = "hop_nvim",
+    dir = "@hop_nvim@",
+    config = function()
+      require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+      vim.keymap.set("n", "<leader><leader>", "<Cmd>HopWord<CR>")
+    end,
+    event = "VeryLazy",
+  },
 }

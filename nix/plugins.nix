@@ -12,8 +12,8 @@
     pkgs.vimUtils.buildVimPlugin {
       inherit pname version src;
     };
-  blame-nvim = mkNvimPlugin "blame.nvim" "https://github.com/FabijanZulj/blame.nvim.git" "main" "dedbcdce857f708c63f261287ac7491a893912d0";
-  nvim-markdown = mkNvimPlugin "nvim-markdown" "https://github.com/ixru/nvim-markdown.git" "master" "75639723c1a3a44366f80cff11383baf0799bcb5";
+  blame-nvim = mkNvimPlugin "blame.nvim" "https://github.com/FabijanZulj/blame.nvim.git" "main" "59cf695685c1d8d603d99b246cc8d42421937c09";
+  nvim-markdown = mkNvimPlugin "nvim-markdown" "https://github.com/ixru/nvim-markdown.git" "master" "316342a89afe68ba53a8812aa42f9e0ccdfc4ebb";
   cellwidths-nvim = mkNvimPlugin "cellwidths.nvim" "https://github.com/delphinus/cellwidths.nvim.git" "main" "98d8b428020c7e0af098f316a02490e5b37e98da";
 
   unmanaged-plugins = {

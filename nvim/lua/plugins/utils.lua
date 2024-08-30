@@ -91,7 +91,8 @@ return {
     dir = "@hop_nvim@",
     config = function()
       require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
-      vim.keymap.set("n", "<leader><leader>", "<Cmd>HopWord<CR>")
+      vim.keymap.set("n", "<leader><leader>", require('hop').hint_words)
+      vim.keymap.set("v", "<leader><leader>", function() require('hop').hint_words({ hint_position = require('hop.hint').HintPosition.END }) end)
     end,
     event = "VeryLazy",
   },

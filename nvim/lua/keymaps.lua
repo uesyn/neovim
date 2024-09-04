@@ -1,7 +1,3 @@
-vim.keymap.set("n", "<C-h>", "<C-w><")
-vim.keymap.set("n", "<C-j>", "<C-w>-")
-vim.keymap.set("n", "<C-k>", "<C-w>+")
-vim.keymap.set("n", "<C-l>", "<C-w>>")
 vim.keymap.set({"n", "v"}, "<leader>", "<Nop>")
 vim.keymap.set("n", "ZZ", "<Nop>")
 vim.keymap.set("n", "ZQ", "<Nop>")

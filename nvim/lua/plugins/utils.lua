@@ -1,5 +1,16 @@
 return {
   {
+    name = "winresize-nvim",
+    dir = "@winresize_nvim@",
+    config = function()
+      vim.keymap.set("n", "<C-h>", function() require("winresize").resize(0, 2, "left") end)
+      vim.keymap.set("n", "<C-j>", function() require("winresize").resize(0, 1, "down") end)
+      vim.keymap.set("n", "<C-k>", function() require("winresize").resize(0, 1, "up") end)
+      vim.keymap.set("n", "<C-l>", function() require("winresize").resize(0, 2, "right") end)
+    end,
+    event = "BufEnter",
+  },
+  {
     name = "fzf_lua",
     dir = "@fzf_lua@",
     config = function()

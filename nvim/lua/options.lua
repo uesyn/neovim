@@ -28,9 +28,3 @@ vim.opt["signcolumn"] = "yes"
 vim.opt["synmaxcol"] = 320
 vim.opt["updatetime"] = 100
 vim.opt["wildmode"] = "full"
-
--- Ignore the user lua configuration
-vim.opt.runtimepath:remove(vim.fn.stdpath("config")) -- ~/.config/nvim
-vim.opt.runtimepath:remove(vim.fn.stdpath("config") .. "/after") -- ~/.config/nvim/after
-vim.opt.runtimepath:remove(vim.fn.stdpath("data") .. "/site") -- ~/.local/share/nvim/site
--- }}}

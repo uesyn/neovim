@@ -33,6 +33,7 @@ with lib;
         src = ../nvim;
 
         buildPhase = ''
+          rm init.lua
           mkdir -p $out
           find . -type d | xargs -I{} mkdir -p $out/{}
           for file in $(find . -type f); do
@@ -42,14 +43,18 @@ with lib;
       }
       // plugins);
 
-    initLua = builtins.readFile ../nvim/init.lua;
+    initLua = builtins.readFile (
+      pkgs.substituteAll ({
+        src = ../nvim/init.lua;
+        my_nvim_config = nvimRtp;
+      }
+      // plugins)
+    );
 
     # Add arguments to the Neovim wrapper script
     extraMakeWrapperArgs = builtins.concatStringsSep " " (
       (optional (extraPackages != [])
         ''--prefix PATH : "${makeBinPath extraPackages}"'')
-      ++ ["--add-flags" (escapeShellArg ''--cmd "set rtp^=${nvimRtp}"'')]
-      ++ ["--add-flags" (escapeShellArg ''-u ${nvimRtp}/init.lua'')]
     );
 
     luaPackages = neovim-unwrapped.lua.pkgs;
@@ -66,6 +71,7 @@ with lib;
 
     neovim-wrapped = pkgs-wrapNeovim.wrapNeovimUnstable neovim-unwrapped (neovimConfig
       // {
+        wrapRc = true;
         luaRcContent = initLua;
         wrapperArgs =
           extraMakeWrapperArgs
@@ -75,7 +81,6 @@ with lib;
           + extraMakeWrapperLuaCArgs
           + " "
           + extraMakeWrapperLuaArgs;
-        wrapRc = false;
       });
   in
     neovim-wrapped

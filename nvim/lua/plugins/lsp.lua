@@ -70,7 +70,7 @@ return {
       end
       
       if vim.fn.executable("typescript-language-server") == 1 then
-        lspconfig.tsserver.setup({
+        lspconfig.ts_ls.setup({
           capabilities = make_client_capabilities(),
           root_dir = require("lspconfig").util.root_pattern("package.json"),
         })

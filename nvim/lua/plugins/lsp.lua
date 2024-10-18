@@ -200,7 +200,7 @@ return {
         },
       })
     end,
-    event = "InsertEnter",
+    event = "VeryLazy",
   },
   {
     name = "fidget_nvim",
@@ -241,6 +241,6 @@ return {
         end,
       })
     end,
-    event = "BufEnter",
+    event = "VeryLazy",
   },
 }
